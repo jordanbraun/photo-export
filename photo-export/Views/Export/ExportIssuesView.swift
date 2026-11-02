@@ -93,6 +93,7 @@ struct ExportIssuesView: View {
   private func issuesList(_ rows: [ExportIssue], canRetry: Bool) -> some View {
     let grouped = Dictionary(grouping: rows, by: \.category)
     return Form {
+      ExportIssuesSummarySection(rows: rows)
       ForEach(AutoSyncFailureCategory.allCases, id: \.self) { category in
         if let entries = grouped[category] {
           Section(header: Self.header(for: category, count: entries.count)) {
@@ -202,11 +203,22 @@ private struct FailureRow: View {
         Text("Version key: \(entry.id.variantRaw)").font(.caption.monospaced())
           .foregroundStyle(.secondary).textSelection(.enabled)
       }
+      let guidance = entry.guidance
+      VStack(alignment: .leading, spacing: 2) {
+        Text(guidance.cause).font(.callout.weight(.medium))
+        Text(guidance.nextStep).font(.callout).foregroundStyle(.secondary)
+      }
+      .fixedSize(horizontal: false, vertical: true)
       Text(
-        ExportVariantRecovery.friendlyCopy(for: entry.reason, label: entry.variantLabel)
-          ?? entry.message
+        "Details: "
+          + (ExportVariantRecovery.friendlyCopy(for: entry.reason, label: entry.variantLabel)
+            ?? entry.message)
       )
-      .font(.callout).fixedSize(horizontal: false, vertical: true)
+      .font(.caption).foregroundStyle(.tertiary).textSelection(.enabled)
+      .fixedSize(horizontal: false, vertical: true)
+      if let term = entry.photosSearchTerm, !entry.isCovered {
+        FindInPhotosButtons(searchTerm: term)
+      }
       HStack {
         Text(timeFooter).font(.caption).foregroundStyle(.tertiary)
         Spacer()

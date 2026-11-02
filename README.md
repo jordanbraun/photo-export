@@ -54,6 +54,7 @@ If Auto Export shows "Blocked — Photos access needed", Photos access is off an
   settings](https://valtteriluomapareto.github.io/photo-export/features/#live-photos).
 - Follow progress below the toolbar, then pause, resume, cancel or clear queued work. [Queue and safe-restart
   behavior](https://valtteriluomapareto.github.io/photo-export/features/#queue-controls).
+- Open **Export Issues** to see why an item couldn't be backed up in plain language, what to do next, and copy a list of filenames or search for one in Photos.
 - See completed and failed counts after a manual export, with wrapped failure details and **View Issues**. [Export
   outcomes](https://valtteriluomapareto.github.io/photo-export/export-icloud-photos/#resuming-an-interrupted-export).
 - Enable **Auto Export** to add new photos automatically, retry transient failures and optionally open at login. [Auto Export
